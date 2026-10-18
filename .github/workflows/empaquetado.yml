@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: comprova-windows
-          path: dist/comprova_desplegaments
+          path: dist/comprova_desplegaments.exe
