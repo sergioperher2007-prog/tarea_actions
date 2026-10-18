@@ -69,7 +69,7 @@ jobs:
             artefacto: comprova-macos
             fichero: comprova_desplegaments
           - os: windows-latest
-            artefecto: comprova-windows
+            artefacto: comprova-windows
             fichero: comprova_desplegaments.exe
     runs-on: ${{matrix.os}}
     defaults:
