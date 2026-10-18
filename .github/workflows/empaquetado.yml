@@ -1,0 +1,57 @@
+name: Empaquetado
+
+on:
+  push:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar PyInstaller
+        run: pip install pyinstaller
+      - name: Generar ejecutable
+        run: pyinstaller --onefile comprova_desplegaments.py
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: comprova-linux
+          path: dist/comprova_desplegaments
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar PyInstaller
+        run: pip install pyinstaller
+      - name: Generar ejecutable
+        run: pyinstaller --onefile comprova_desplegaments.py
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: comprova-macos
+          path: dist/comprova_desplegaments
+
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar PyInstaller
+        run: pip install pyinstaller
+      - name: Generar ejecutable
+        run: pyinstaller --onefile comprova_desplegaments.py
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: comprova-windows
+          path: dist/comprova_desplegaments
