@@ -66,28 +66,28 @@ jobs:
             artefacto: comprova-linux
             fichero: comprova_desplegaments
           - os: macos-latest
-            artefacto: comprova-linux
+            artefacto: comprova-macos
             fichero: comprova_desplegaments
           - os: windows-latest
-            artefecto: comproba-windows
+            artefecto: comprova-windows
             fichero: comprova_desplegaments.exe
-      runs-on: ${{matrix.os}}
-      defaults:
-        run:
-          shell: bash
-      steps:
-        - name: Descargar ejecutable
-          uses: actions/download-artifact@v4
-          with:
-            name: ${{ matrix.artefacto }}
-            path: bin
-        - name: Dar permisos de ejecución
-          if: runner.os != 'Windows'
-          run: chmod +x bin/${{ matrix.fichero }}
-        - name: Ejecutar sin parámetros (debe fallar pidiendo una URL)
-          run: |
-            if ./bin/${{ matrix.fichero }}; then
-              echo "Se esperaba un error al no indicar URL"; exit 1
-            fi
-        - name: Ejecutar contra una URL real
-          run: ./bin/${{ matrix.fichero }} example.com
+    runs-on: ${{matrix.os}}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Descargar ejecutable
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.artefacto }}
+          path: bin
+      - name: Dar permisos de ejecución
+        if: runner.os != 'Windows'
+        run: chmod +x bin/${{ matrix.fichero }}
+      - name: Ejecutar sin parámetros (debe fallar pidiendo una URL)
+        run: |
+          if ./bin/${{ matrix.fichero }}; then
+            echo "Se esperaba un error al no indicar URL"; exit 1
+          fi
+      - name: Ejecutar contra una URL real
+        run: ./bin/${{ matrix.fichero }} example.com
